@@ -1,0 +1,37 @@
+﻿<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>카드 결제 테스트 페이지</title>
+    <object name="asoPosAX" id="asoPosAX" classid="clsid:74B59E87-303F-41BF-92E4-8CA6D44477A9" codebase="AsoPOS.cab#version=1,0,0,0"></object>
+    <script language="javascript" type="text/javascript" src="pos.js"></script>
+</head>
+<body>
+    <h1>ActiveX 카드 결제</h1>
+    <table>
+        <tr>
+            <td>
+                <button id="myButton" onclick="cardApprove();">Com Method</button>
+                <label>Args</label>
+                <textarea id="myArgs" rows="1" cols="16">Hello World!</textarea>
+                <button id="myButton" onclick="test();">테스트</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <textarea id="myTextBox" rows="8" cols="60"></textarea>
+            </td>
+        </tr>
+    </table>
+    <script for="asoPosAX" event="OnApprove(vo)" language="javascript">
+        function asoPosAX::OnApprove(vo) {
+            alert("asoPosAX::OnApprove(vo)");
+            alert(vo);
+        }
+    </script>
+    <script for="asoPosAX" event="OnInit(args)" language="javascript">
+        function asoPosAX::OnInit(args) {
+            alert("OnInit(args):" + args);
+        }
+    </script>
+</body>
+</html>

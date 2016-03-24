@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AsoPOSInstall", "AsoPOSInstall\AsoPOSInstall.vdproj", "{909931C0-F506-436A-B49B-2DB3B25B00EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsoLibs", "AsoLibs\AsoLibs.csproj", "{936FABC1-D089-4EB4-A0EA-D133413E04BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launcher.csproj", "{9B769413-DCAE-43D6-8003-71072044C1BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{909931C0-F506-436A-B49B-2DB3B25B00EF}.Debug|Any CPU.ActiveCfg = Debug
+		{909931C0-F506-436A-B49B-2DB3B25B00EF}.Debug|Any CPU.Build.0 = Debug
+		{909931C0-F506-436A-B49B-2DB3B25B00EF}.Release|Any CPU.ActiveCfg = Release
+		{909931C0-F506-436A-B49B-2DB3B25B00EF}.Release|Any CPU.Build.0 = Release
+		{936FABC1-D089-4EB4-A0EA-D133413E04BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{936FABC1-D089-4EB4-A0EA-D133413E04BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{936FABC1-D089-4EB4-A0EA-D133413E04BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{936FABC1-D089-4EB4-A0EA-D133413E04BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B769413-DCAE-43D6-8003-71072044C1BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B769413-DCAE-43D6-8003-71072044C1BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B769413-DCAE-43D6-8003-71072044C1BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B769413-DCAE-43D6-8003-71072044C1BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

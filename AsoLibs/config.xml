@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <global>
+    <van>KOVAN</van>
+    <ip>192.168.0.111</ip>
+    <port>5000</port>
+    <desc>코벤용 설정</desc>
+    <printer>IP</printer>
+    <printerPort>COM3</printerPort>
+    <printerWidth>48</printerWidth>
+    <testPrintMessage>printer test 한글도 찍어 봄</testPrintMessage>
+  </global>
+</config>
