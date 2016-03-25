@@ -18,7 +18,6 @@ namespace AsoLibs.POS
             string org_auth_date,
             string org_auth_no,
             StringBuilder recv_data
-            ,string xxx
             );
 
         public RecvVO CreditCardApprove(SendVO sendVO)
@@ -38,7 +37,7 @@ namespace AsoLibs.POS
                 Int32 gubun = sendVO.Gubun;
                 string orgAuthDate = sendVO.OrgAuthDate;
                 string orgAuthNo = sendVO.OrgAuthNo;
-                returnValue = Kovan_Send(ip, port, amount, halbu, gubun, orgAuthDate, orgAuthNo, recvData, null);
+                //returnValue = Kovan_Send(ip, port, amount, halbu, gubun, orgAuthDate, orgAuthNo, recvData, null);
                 recvVO = new RecvVO(returnValue, recvData.ToString());
             }
             catch (Exception e)

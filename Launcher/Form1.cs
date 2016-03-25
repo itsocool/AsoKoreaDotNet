@@ -135,8 +135,10 @@ namespace Launcher
                 string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + amount + FS + FS + FS + FS + FS + ETX;
                 StringBuilder recvByte = new StringBuilder();
                 //returnValue = NicePOS.ReqToCat(ip, port, sendData, recvByte);
-                returnValue = NicePOS.ReqToCat(ip, port, "***", recvByte);
-                string result = recvByte.ToString();
+                //IPOS pos = new KoVanPOS();
+                IPOS pos = new NicePOS();
+                RecvVO vo = pos.CreditCardApprove(null);
+                string result = vo.ReturnValue.ToString();
                 MessageBox.Show(result);
             }
             catch (Exception ex)

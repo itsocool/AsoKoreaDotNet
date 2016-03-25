@@ -2,7 +2,7 @@
 
 namespace AsoLibs.POS
 {
-    interface IPOS
+    public interface IPOS
     {
         RecvVO CreditCardApprove(SendVO vo);
     }

@@ -9,25 +9,13 @@ namespace AsoLibs.POS
     public class NicePOS : IPOS
     {
         [DllImport(@"extlibs\PosToCatReqL.dll", CharSet = CharSet.Unicode)]
-        public static extern Int32 ReqToCat
-            (string CatIP,
-            Int32 CatPort,
-            string SendData,
-            StringBuilder RecvData
-            );
-
-        public NicePOS()
-        {
-
-        }
+        public static extern Int32 ReqToCat(byte[] CatIP, Int32 CatPort, byte[] SendData, byte[] RecvData);
 
         public RecvVO CreditCardApprove(SendVO sendVO)
         {
-            //int count = 0;
-            //Array.ForEach<int>(RecvVO.bytes, delegate (int e) { count += e; });
             RecvVO recvVO = null;
-            //StringBuilder recvData = new StringBuilder(count);
-            int returnValue = -1;
+            byte[] recvData = new byte[2000];
+            Int32 returnValue = 0;
 
             try
             {
@@ -43,15 +31,17 @@ namespace AsoLibs.POS
                 string ETX = ((char)0x03).ToString();
                 string FS = ((char)0x1C).ToString();
 
-                string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + "1004" + FS + FS + FS + FS + FS + ETX;
-                StringBuilder recvByte = new StringBuilder();
+                halbu = "00";
+                amount = "000001004";
 
-                //returnValue = ReqToCat(ip, port, sendData, recvByte);
-                returnValue = ReqToCat(ip, port, "***", recvByte);
-                string result = recvByte.ToString();
-                MessageBox.Show(result);
+                string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + amount + FS + FS + FS + FS + FS + ETX;
+                sendData = STX + "D5" + FS + ETX;
+                sendData = "***";
+                byte[] sendBytes = Encoding.Default.GetBytes(sendData);
 
-                recvVO = new RecvVO((int)returnValue, recvByte.ToString());
+                returnValue = ReqToCat(Encoding.Default.GetBytes(ip), 5000, sendBytes, recvData);
+                string result = Encoding.Default.GetString(recvData);
+                recvVO = new RecvVO((int)returnValue, result);
             }
             catch (Exception e)
             {

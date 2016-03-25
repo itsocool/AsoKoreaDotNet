@@ -94,9 +94,13 @@
     <Content Include="extlibs\KovanSocketCat.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="extlibs\PosToCatReqL.dll" />
+    <Content Include="extlibs\PosToCatReqL.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="bulid.cmd" />
-    <None Include="extlibs\PosToCatReqL.lib" />
+    <None Include="extlibs\PosToCatReqL.lib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="AsoLib.pfx" />
