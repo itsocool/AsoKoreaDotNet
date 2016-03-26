@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- You don't need to worry about anything in this file unless you're
+     using registration-free COM.
+     There should be an appropriate <clrclass> section for every ActiveX
+     control defined in the project -->
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" 
+  manifestVersion="1.0">
+<assemblyIdentity
+            type="win32"
+            name="AsoActiveX"
+            version="1.0.0.0" />
+<clrClass
+            clsid="{0D8233FD-6A6C-464F-A0E8-455A8C0636F8}"
+            progid="AsoAX.AsoActiveX"
+            threadingModel="Both"
+            name="AsoAX.AsoActiveX" >
+</clrClass>
+</assembly>

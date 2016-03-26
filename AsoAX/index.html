@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<title>Untitled</title>
+  <meta charset="UTF-8">
+<meta name="generator" content="Namo WebEditor v3.0">
+<script src="jquery-2.2.2.min.js" />
+<script>
+
+function initAx()
+{
+	try{
+		var handler = document.createElement("script");
+		handler.setAttribute("for", "ax");
+		handler.event = "TestStringChange(param1)";
+		handler.innerHTML = "ie11(param1);";
+		//handler.appendChild(document.createTextNode("ie11(param1);"));
+		document.head.appendChild(handler);
+	}catch(error)
+	{
+		alert(error.message);
+	}
+
+	try{
+		var activeX = document.createElement("object");
+		activeX.id = "ax"; 
+		activeX.classid = "clsid:070661F9-5C1E-4B09-9B8F-A03D1169BA5A";
+		document.body.appendChild(activeX);
+
+		var ax = document.getElementById("ax");
+		alert(ax);
+
+		ax.attachEvent("TestStringChange", ie11lower);
+	}catch(error){
+		alert(error.message);
+	}
+
+}
+
+function ie11(msg)
+{
+	alert("ie11 " + msg);
+}
+
+function ie11lower(msg)
+{
+	alert("ie11lower " + msg);
+}
+
+
+</script>
+
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<input type="button" value="눌러봐" onclick="initAx()">
+<p><!-- <object id='ax' classid="clsid:070661F9-5C1E-4B09-9B8F-A03D1169BA5A" width="445" height="449">
+</object> -->
+</p>
+</body>
+
+</html>
