@@ -16,7 +16,7 @@ namespace POS.DEMO
     public partial class MainForm : Form
     {
 
-        //[DllImport(@"extlibs\PosToCatReqL.dll", CharSet = CharSet.Unicode)]
+        //[DllImport(@"Extlibs\PosToCatReqL.dll", CharSet = CharSet.Unicode)]
         //public static extern Int32 ReqToCat(string CatIP, Int32 CatPort, string SendData, StringBuilder RecvData);
 
         public MainForm()
@@ -31,7 +31,7 @@ namespace POS.DEMO
                 var recvData = new StringBuilder();
                 SendVO sendVo = new SendVO("NICE", "192.168.0.111", 5000, 1000, "00", 1, null, null);
                 IPOS pos = new NicePOS();
-                RecvVO recvVo = pos.CreditCardApprove(sendVo);
+                RecvVO recvVo = pos.Send(sendVo);
                 string msg = recvVo.ReturnValue.ToString();
                 MessageBox.Show(msg);
             }

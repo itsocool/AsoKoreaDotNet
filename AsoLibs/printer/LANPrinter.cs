@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Windows.Forms;
 
-namespace AsoLibs.printer
+namespace AsoLibs.Printer
 {
     public class LANPrinter : IPrinter
     {
@@ -33,7 +31,6 @@ namespace AsoLibs.printer
 
         public LANPrinter()
         {
-            ;
         }
 
         public LANPrinter(string ip, int port)
@@ -63,17 +60,12 @@ namespace AsoLibs.printer
             IPEndPoint ipep = new IPEndPoint(ipaddress, port);
             NetworkStream writeStream = null;
 
-            //MessageBox.Show("print");
-
             try
             {
                 client = new TcpClient();
                 client.Connect(ipep);
 
-                //if ((printMode & 0x01) == 0x01 || (printMode & 0x02) == 0x01)
-                //{
-                    data = paresPrintString(data);
-                //}
+                data = paresPrintString(data);
 
                 byte[] bytes = Encoding.Default.GetBytes(data);
 
@@ -193,18 +185,6 @@ namespace AsoLibs.printer
             return result;
         }
 
-
-
-        public string PortName
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                ;
-            }
-        }
+        public string PortName { get; set; }
     }
 }

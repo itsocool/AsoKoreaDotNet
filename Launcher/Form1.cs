@@ -80,13 +80,13 @@ namespace Launcher
 
             try
             {
-                CardApprovalVO vo = ax.CreditCardApprove(2000, "00", 1, null, null) as CardApprovalVO;
+                CardApprovalVO vo = ax.Send(2000, "00", 1, null, null) as CardApprovalVO;
                 recv_data = new StringBuilder();
 
                 if (vo is CardApprovalVO)
                 {
-                    rtn = vo.returnValue;
-                    textBox1.Text = "ReturnValue:" + vo.returnValue.ToString();
+                    rtn = vo.ReturnValue;
+                    textBox1.Text = "ReturnValue:" + vo.ReturnValue.ToString();
                     textBox1.Text += "\n";
                     textBox1.Text += "IsApproved:" + vo.is_confirm.ToString();
                 }
@@ -137,7 +137,7 @@ namespace Launcher
                 //returnValue = NicePOS.ReqToCat(ip, port, sendData, recvByte);
                 //IPOS pos = new KoVanPOS();
                 IPOS pos = new NicePOS();
-                RecvVO vo = pos.CreditCardApprove(null);
+                RecvVO vo = pos.Send(null);
                 string result = vo.ReturnValue.ToString();
                 MessageBox.Show(result);
             }
@@ -159,8 +159,8 @@ namespace Launcher
                 string amount = sendVO.Amount;
                 string halbu = sendVO.Halbu;
                 Int32 gubun = sendVO.Gubun;
-                string orgAuthDate = sendVO.OrgAuthDate;
-                string orgAuthNo = sendVO.OrgAuthNo;
+                string orgAuthDate = sendVO.AuthDate;
+                string orgAuthNo = sendVO.AuthNo;
 
                 string STX = ((char)0x02).ToString();
                 string ETX = ((char)0x03).ToString();

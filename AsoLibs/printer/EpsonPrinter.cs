@@ -2,7 +2,7 @@
 using System.IO.Ports;
 using System.Text;
 
-namespace AsoLibs.printer
+namespace AsoLibs.Printer
 {
     class EpsonPrinter : IPrinter
     {

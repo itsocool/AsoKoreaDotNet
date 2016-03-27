@@ -18,5 +18,8 @@ namespace AsoLibs
 
         [DispId(3)]
         void OnPrint(CardVO vo);
+
+        [DispId(4)]
+        void OnError(Exception ex);
     }
 }

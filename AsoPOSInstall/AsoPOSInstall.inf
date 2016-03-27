@@ -3,8 +3,7 @@ signature="$CHICAGO$"
 AdvancedINF=2.0
 
 [Setup Hooks]
-hook1=hook1
+install=install
 
-[hook1]
-;run=msiexec.exe /i """%EXTRACT_DIR%\AsoPOSInstall.msi""" /qn
-run="""%EXTRACT_DIR%\setup.exe"""
+[install]
+run=msiexec.exe /package """%EXTRACT_DIR%\AsoPOSInstall.msi""" /qn

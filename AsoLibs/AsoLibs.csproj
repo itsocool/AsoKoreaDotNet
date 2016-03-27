@@ -44,7 +44,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RegisterForComInterop>false</RegisterForComInterop>
+    <RegisterForComInterop>true</RegisterForComInterop>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -57,33 +57,38 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsoActiveXControl.cs" />
-    <Compile Include="config\GlobalConfig.cs" />
-    <Compile Include="ControlEvnts.cs" />
+    <Compile Include="ActiveXCtrlHelper.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Config\GlobalConfig.cs" />
     <Compile Include="IAsoActiveXControl.cs" />
     <Compile Include="IComEvents.cs" />
     <Compile Include="IObjectSafety.cs" />
-    <Compile Include="IPersistPropertyBag.cs" />
-    <Compile Include="IPropertyBag.cs" />
     <Compile Include="POS\IPOS.cs" />
     <Compile Include="POS\NicePOS.cs" />
     <Compile Include="POS\KoVanPOS.cs" />
     <Compile Include="POS\POSManager.cs" />
-    <Compile Include="printer\EpsonPrinter.cs" />
-    <Compile Include="printer\IPrinter.cs" />
-    <Compile Include="printer\LANPrinter.cs" />
+    <Compile Include="Printer\EpsonPrinter.cs" />
+    <Compile Include="Printer\IPrinter.cs" />
+    <Compile Include="Printer\LANPrinter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AsoActiveXControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AsoActiveXControl.Designer.cs">
+      <DependentUpon>AsoActiveXControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="VO\CardApprovalVO.cs" />
     <Compile Include="VO\CardItemVO.cs" />
     <Compile Include="VO\CardVO.cs" />
-    <Compile Include="VO\ConfigVO.cs" />
-    <Compile Include="VO\PrintVO.cs" />
     <Compile Include="VO\RecvVO.cs" />
     <Compile Include="VO\SendVO.cs" />
   </ItemGroup>
@@ -91,14 +96,14 @@
     <Content Include="config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="extlibs\KovanSocketCat.dll">
+    <Content Include="Extlibs\KovanSocketCat.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="extlibs\PosToCatReqL.dll">
+    <Content Include="Extlibs\PosToCatReqL.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="bulid.cmd" />
-    <None Include="extlibs\PosToCatReqL.lib">
+    <None Include="Extlibs\PosToCatReqL.lib">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -111,6 +116,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AsoActiveXControl.resx">
+      <DependentUpon>AsoActiveXControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

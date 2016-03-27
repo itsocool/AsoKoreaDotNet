@@ -8,97 +8,54 @@ namespace AsoLibs.config
     public sealed class GlobalConfig
     {
         private static readonly GlobalConfig instance = new GlobalConfig();
-        private GlobalConfig() { }
-        private static XmlDocument xmlDoc = new XmlDocument();
-        private VANs vanProvider;
-        private string ip;
-        private int port;
-        private string desc;
-        private Printers printer;
-        private string printerPort;
-        private int printerWidth = 0;
-
-        public XmlDocument XmlDoc
+        private GlobalConfig()
         {
-            get { return xmlDoc; }
-            set { xmlDoc = value; }
+            LoadXml();
         }
 
-        public int PrinterWidth
-        {
-            get { return printerWidth; }
-            set
-            {
-                printerWidth = value;
-                SaveXml();
-            }
-        }
+        #region Properties
 
-        public string PrinterPort
-        {
-            get { return printerPort; }
-            set
-            {
-                printerPort = value;
-                SaveXml();
-            }
-        }
+        public XmlDocument XmlDoc { get; set; } = new XmlDocument();
 
-        public Printers Printer
-        {
-            get { return printer; }
-            private set { printer = value; }
-        }
+        public int PrinterWidth { get; set; } = 0;
 
-        public string Desc
-        {
-            get { return desc; }
-            set { desc = value; }
-        }
-        private string testPrintMessage;
+        public string PrinterPort { get; set; }
 
-        public string TestPrintMessage
-        {
-            get { return testPrintMessage; }
-            set { testPrintMessage = value; }
-        }
+        public Printers Printer { get; set; }
 
-        public VANs VanProvider
-        {
-            get { return vanProvider; }
-            private set { vanProvider = value; }
-        }
+        public string Desc { get; set; }
 
-        public string Ip
-        {
-            get { return ip; }
-        }
+        public string TestPrintMessage { get; set; }
 
-        public int Port
-        {
-            get { return port; }
-        }
+        public VANs VanProvider { get; set; }
 
-        private static void LoadXml()
+        public string Ip { get; set; }
+
+        public int Port { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public void LoadXml()
         {
             string dllPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string configXmlPath = Path.Combine(dllPath, "config.xml");
-            
-            xmlDoc.Load(configXmlPath);
 
-            string van = xmlDoc.SelectSingleNode("/config/global/van").InnerText;
+            XmlDoc.Load(configXmlPath);
 
-            instance.vanProvider = (VANs)Enum.Parse(typeof(VANs), xmlDoc.SelectSingleNode("/config/global/van").InnerText);
-            instance.ip = xmlDoc.SelectSingleNode("/config/global/ip").InnerText;
-            instance.port = Int32.Parse(xmlDoc.SelectSingleNode("/config/global/port").InnerText);
-            instance.desc = xmlDoc.SelectSingleNode("/config/global/desc").InnerText;
-            instance.testPrintMessage = xmlDoc.SelectSingleNode("/config/global/testPrintMessage").InnerText;
-            instance.printer = (Printers)Enum.Parse(typeof(Printers), xmlDoc.SelectSingleNode("/config/global/printer").InnerText);
-            instance.printerPort = xmlDoc.SelectSingleNode("/config/global/printerPort").InnerText;
-            instance.printerWidth = Int32.Parse(xmlDoc.SelectSingleNode("/config/global/printerWidth").InnerText);
+            string van = XmlDoc.SelectSingleNode("/config/global/van").InnerText;
+            VanProvider = (VANs)Enum.Parse(typeof(VANs), XmlDoc.SelectSingleNode("/config/global/van").InnerText);
+            Ip = XmlDoc.SelectSingleNode("/config/global/ip").InnerText;
+            Port = Int32.Parse(XmlDoc.SelectSingleNode("/config/global/port").InnerText);
+            Desc = XmlDoc.SelectSingleNode("/config/global/desc").InnerText;
+            TestPrintMessage = XmlDoc.SelectSingleNode("/config/global/testPrintMessage").InnerText;
+            Printer = (Printers)Enum.Parse(typeof(Printers), XmlDoc.SelectSingleNode("/config/global/printer").InnerText);
+            PrinterPort = XmlDoc.SelectSingleNode("/config/global/printerPort").InnerText;
+            PrinterWidth = Int32.Parse(XmlDoc.SelectSingleNode("/config/global/printerWidth").InnerText);
         }
 
-        private static void SaveXml()
+        private void SaveXml()
         {
             string dllPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string configXmlPath = Path.Combine(dllPath, "config.xml");
@@ -106,40 +63,43 @@ namespace AsoLibs.config
 
             doc.Load(configXmlPath);
 
-            doc.SelectSingleNode("/config/global/van").InnerText = instance.vanProvider.ToString();
-            doc.SelectSingleNode("/config/global/ip").InnerText = instance.ip;
-            doc.SelectSingleNode("/config/global/port").InnerText = instance.port.ToString();
-            doc.SelectSingleNode("/config/global/desc").InnerText = instance.desc;
-            doc.SelectSingleNode("/config/global/testPrintMessage").InnerText = instance.testPrintMessage;
-            doc.SelectSingleNode("/config/global/printer").InnerText = instance.printer.ToString();
-            doc.SelectSingleNode("/config/global/printerPort").InnerText = instance.printerPort;
-            doc.SelectSingleNode("/config/global/printerWidth").InnerText = instance.printerWidth.ToString();
+            doc.SelectSingleNode("/config/global/van").InnerText = instance.VanProvider.ToString();
+            doc.SelectSingleNode("/config/global/ip").InnerText = instance.Ip;
+            doc.SelectSingleNode("/config/global/port").InnerText = instance.Port.ToString();
+            doc.SelectSingleNode("/config/global/desc").InnerText = instance.Desc;
+            doc.SelectSingleNode("/config/global/testPrintMessage").InnerText = instance.TestPrintMessage;
+            doc.SelectSingleNode("/config/global/printer").InnerText = instance.Printer.ToString();
+            doc.SelectSingleNode("/config/global/printerPort").InnerText = instance.PrinterPort;
+            doc.SelectSingleNode("/config/global/printerWidth").InnerText = instance.PrinterWidth.ToString();
+
+            doc.Save(configXmlPath);
         }
 
         public static GlobalConfig Instance
         {
             get
             {
-                LoadXml();
                 return instance;
             }
         }
 
         public void ReLoadXml()
         {
-            instance.vanProvider = VANs.DEFAULT;
-            instance.ip = null;
-            instance.port = 0;
+            VanProvider = VANs.DEFAULT;
+            Ip = null;
+            Port = 0;
             LoadXml();
         }
 
         public void SetValues(string van, string ip, string port, int width)
         {
-            instance.vanProvider = (van != null) ? (VANs)Enum.Parse(typeof(VANs), van) : instance.vanProvider;
-            instance.ip = (ip == null) ? instance.ip : ip;
-            instance.port = (port == null) ? instance.port : int.Parse(port);
-            instance.printerWidth = width;
-        }
+            VanProvider = (van != null) ? (VANs)Enum.Parse(typeof(VANs), van) : instance.VanProvider;
+            Ip = ip;
+            Port = Convert.ToInt32(port);
+            PrinterWidth = width;
+        } 
+
+        #endregion
 
     }
 

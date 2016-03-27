@@ -1,11 +1,4 @@
-﻿.OPTION EXPLICIT     ; Generate errors 
-;.Set CabinetNameTemplate=AsoPOS.cab       
-.set DiskDirectoryTemplate=CDROM ; All cabinets go in a single directory
-.Set CompressionType=MSZIP;** All files are compressed in cabinet files
-.Set UniqueFiles="OFF"
-.Set Cabinet=on
-.Set DiskDirectory1=
-AsoPOSInstall.msi
+﻿.Set DiskDirectoryTemplate=cab
+.Set CabinetNameTemplate=AsoPOSInstall.cab
+Release\AsoPOSInstall.msi
 AsoPOSInstall.inf
-setup.exe
-;*** <the end>

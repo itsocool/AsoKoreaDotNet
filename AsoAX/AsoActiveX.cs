@@ -350,10 +350,9 @@ namespace AsoAX
         {
             //MessageBox.Show(tbMessage.Text, "HelloWorld",
             //    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             TestString = tbMessage.Text;
-        }
 
+        }
     }
 
 } // namespace AsoAX

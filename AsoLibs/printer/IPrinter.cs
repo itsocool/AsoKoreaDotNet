@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Text;
 
-namespace AsoLibs.printer
+namespace AsoLibs.Printer
 {
     interface IPrinter
     {

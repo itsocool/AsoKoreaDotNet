@@ -45,7 +45,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B5B80CA7F65C4C478CD0D299996C672E"
+        "MsmKey" = "8:_A7D3A664C90344D4A9E6B73BA9B2CA35"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -76,7 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B5B80CA7F65C4C478CD0D299996C672E"
+        "OwnerKey" = "8:_A7D3A664C90344D4A9E6B73BA9B2CA35"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -111,10 +111,15 @@
                     "Name" = "8:Microsoft .NET Framework 4.5(x86 및 x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.5"
                     }
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
                     {
-                    "Name" = "8:Windows Installer 3.1"
-                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.4.5"
+                    {
+                    "Name" = "8:Windows Installer 4.5"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.4.5"
                     }
                 }
             }
@@ -143,15 +148,20 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.2.0"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
                     {
-                    "Name" = "8:.NET Framework 2.0(x86)"
-                    "ProductCode" = "8:Microsoft.Net.Framework.2.0"
+                    "Name" = "8:Microsoft .NET Framework 4.5(x86 및 x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
                     }
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
                     {
-                    "Name" = "8:Windows Installer 3.1"
-                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.4.5"
+                    {
+                    "Name" = "8:Windows Installer 4.5"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.4.5"
                     }
                 }
             }
@@ -398,15 +408,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:AsoPOSInstall"
-        "ProductCode" = "8:{50F376AF-5095-4F2A-8EBD-E9D92A91A6B6}"
-        "PackageCode" = "8:{796E9B7B-4304-4174-B80B-19515FA59C6B}"
+        "ProductCode" = "8:{0345E12E-570D-4518-B70D-E3BD51CE76CA}"
+        "PackageCode" = "8:{0682B459-FCCD-4EF5-A9B4-ED95D9123AAA}"
         "UpgradeCode" = "8:{F4F332C5-30D5-40F9-887A-A4D8830EA66D}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:ASOKorea"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -422,8 +432,8 @@
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
-        "PostBuildEvent" = "8:"
-        "RunPostBuildEvent" = "3:1"
+        "PostBuildEvent" = "8:cd \"$(ProjectDir)\"\r\n\"%WINDIR%\\System32\\Makecab.exe\" /f \"AsoPOSInstall.ddf\""
+        "RunPostBuildEvent" = "3:0"
         }
         "Registry"
         {
@@ -918,7 +928,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2313FA69C1EC4DDC8F094578857F7005"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_371C40D17E7545F8871E161064231EDC"
             {
             "SourcePath" = "8:"
             "TargetName" = "8:"
@@ -946,9 +956,9 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B5B80CA7F65C4C478CD0D299996C672E"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A7D3A664C90344D4A9E6B73BA9B2CA35"
             {
-            "SourcePath" = "8:..\\AsoLibs\\obj\\Debug\\AsoLibs.dll"
+            "SourcePath" = "8:..\\AsoLibs\\obj\\Release\\AsoLibs.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_33EFA9186113482489DA9A23AD31442D"
