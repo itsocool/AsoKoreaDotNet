@@ -420,7 +420,7 @@ namespace AsoLibs
         public new event ClickEventHandler Click = null;
         void ActiveXCtrl_Click(object sender, EventArgs e)
         {
-
+            if (null != Click) Click(); // Raise the new Click event.
         }
 
         [ComVisible(false)]
