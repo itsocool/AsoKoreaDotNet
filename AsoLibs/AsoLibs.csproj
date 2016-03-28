@@ -68,6 +68,12 @@
     <Compile Include="ActiveXCtrlHelper.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="AsoAXCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AsoAXCtrl.Designer.cs">
+      <DependentUpon>AsoAXCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config\GlobalConfig.cs" />
     <Compile Include="IAsoActiveXControl.cs" />
     <Compile Include="IComEvents.cs" />
@@ -76,7 +82,7 @@
     <Compile Include="POS\NicePOS.cs" />
     <Compile Include="POS\KoVanPOS.cs" />
     <Compile Include="POS\POSManager.cs" />
-    <Compile Include="Printer\EpsonPrinter.cs" />
+    <Compile Include="Printer\SerialPrinter.cs" />
     <Compile Include="Printer\IPrinter.cs" />
     <Compile Include="Printer\LANPrinter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +127,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AsoActiveXControl.resx">
       <DependentUpon>AsoActiveXControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AsoAXCtrl.resx">
+      <DependentUpon>AsoAXCtrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

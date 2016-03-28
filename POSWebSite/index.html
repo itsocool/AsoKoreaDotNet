@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html>
+<head>
+<title>Untitled</title>
+  <meta charset="UTF-8">
+<meta name="generator" content="Namo WebEditor v3.0">
+<script>
+
+function initAx()
+{
+    //try{
+    //    var handler = document.createElement("script");
+    //    handler.setAttribute("for", "ax");
+    //    handler.event = "TestStringChange(param1)";
+    //    handler.innerHTML = "ie11(param1);";
+    //    //handler.appendChild(document.createTextNode("ie11(param1);"));
+    //    document.head.appendChild(handler);
+    //}catch(error)
+    //{
+    //    alert(error.message);
+    //}
+
+    //try{
+    //    var activeX = document.createElement("object");
+    //    activeX.id = "ax"; 
+    //    activeX.classid = "clsid:74B59E87-303F-41BF-92E4-8CA6D44477A9";
+    //    document.body.appendChild(activeX);
+
+    //    var ax = document.getElementById("ax");
+    //    alert(ax);
+
+    //    ax.attachEvent("TestStringChange", ie11lower);
+    //}catch(error){
+    //    alert(error.message);
+    //}
+    var ax = document.getElementById("ax");
+    //alert(ax);
+    ax.Echo("ActiveX Echo!");
+
+}
+
+function ie11(msg)
+{
+    alert("ie11 " + msg);
+}
+
+function ie11lower(msg)
+{
+    alert("ie11lower " + msg);
+}
+
+
+</script>
+
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+<input type="button" value="눌러봐" onclick="initAx()">
+<p>
+    <object id='ax' classid="clsid:2CC571CE-7B4E-4FB1-A469-0A49E857C351" width="640" height="480"></object>
+</p>
+</body>
+
+</html>

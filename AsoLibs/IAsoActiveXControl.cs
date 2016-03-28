@@ -1,4 +1,5 @@
-﻿using AsoLibs.VO;
+﻿using AsoLibs.config;
+using AsoLibs.VO;
 using System;
 using System.Runtime.InteropServices;
 
@@ -9,13 +10,14 @@ namespace AsoLibs
     {
         #region Properties
 
+        GlobalConfig Config { get; set; }
         int ForeColor { get; set; }         // Typical control property
         int BackColor { get; set; }         // Typical control property
-        string Van { get; set; }
-        string IP { get; set; }
-        int Port { get; set; }
-        string PrinterMode { get; set; }
-        string PrinterWidth { get; set; }
+        //string Van { get; set; }
+        //string IP { get; set; }
+        //int Port { get; set; }
+        //string PrinterMode { get; set; }
+        //int PrinterWidth { get; set; }
 
         #endregion
 

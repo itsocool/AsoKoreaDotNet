@@ -19,8 +19,8 @@ namespace Launcher
             InitializeComponent();
             Version version = Assembly.GetEntryAssembly().GetName().Version;
             this.Text += " " + version.ToString();
-            xmlDoc = ax.config.XmlDoc;
-            treeBinding(xmlDoc, treeView);
+            //xmlDoc = ax.config.XmlDoc;
+            //treeBinding(xmlDoc, treeView);
         }
 
         private void treeBinding(XmlDocument xml, TreeView tree)
@@ -80,17 +80,18 @@ namespace Launcher
 
             try
             {
-                CardApprovalVO vo = ax.Send(2000, "00", 1, null, null) as CardApprovalVO;
+                RecvVO vo = ax.Send(null);
+                //CardApprovalVO vo = ax.Send(2000, "00", 1, null, null) as CardApprovalVO;
                 recv_data = new StringBuilder();
 
-                if (vo is CardApprovalVO)
-                {
-                    rtn = vo.ReturnValue;
-                    textBox1.Text = "ReturnValue:" + vo.ReturnValue.ToString();
-                    textBox1.Text += "\n";
-                    textBox1.Text += "IsApproved:" + vo.is_confirm.ToString();
-                }
-                MessageBox.Show(rtn.ToString());
+                //if (vo is CardApprovalVO)
+                //{
+                //    rtn = vo.ReturnValue;
+                //    textBox1.Text = "ReturnValue:" + vo.ReturnValue.ToString();
+                //    textBox1.Text += "\n";
+                //    textBox1.Text += "IsApproved:" + vo.is_confirm.ToString();
+                //}
+                MessageBox.Show(recv_data.ToString());
             }
             catch (Exception ex)
             {
@@ -146,51 +147,5 @@ namespace Launcher
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private RecvVO CreditCardApprove(SendVO sendVO)
-        {
-            RecvVO recvVO = null;
-            int returnValue = -1;
-
-            try
-            {
-                string ip = sendVO.Ip;
-                int port = sendVO.Port;
-                string amount = sendVO.Amount;
-                string halbu = sendVO.Halbu;
-                Int32 gubun = sendVO.Gubun;
-                string orgAuthDate = sendVO.AuthDate;
-                string orgAuthNo = sendVO.AuthNo;
-
-                string STX = ((char)0x02).ToString();
-                string ETX = ((char)0x03).ToString();
-                string FS = ((char)0x1C).ToString();
-
-                string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + "1004" + FS + FS + FS + FS + FS + ETX;
-                StringBuilder recvByte = new StringBuilder();
-
-                //returnValue = Form1.ReqToCat(ip, port, sendData, recvByte);
-                string result = recvByte.ToString();
-                MessageBox.Show(result);
-
-                recvVO = new RecvVO((int)returnValue, recvByte.ToString());
-            }
-            catch (Exception e)
-            {
-                Console.Write(e.Message);
-                MessageBox.Show(e.Message);
-                if (recvVO == null)
-                {
-                    recvVO = new RecvVO((int)returnValue, "    N");
-                }
-                else if (recvVO.GetValue(1) == null)
-
-                    recvVO.ReturnValue = -1;
-                return recvVO;
-            }
-
-            return recvVO;
-        }
-
     }
 }

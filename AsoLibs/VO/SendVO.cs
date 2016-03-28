@@ -6,7 +6,7 @@ namespace AsoLibs.VO
     [Serializable]
     public class SendVO
     {
-        public string VANProvider { get; set; }
+        public string Van { get; set; }
         public string Ip { get; set; }
         public int Port { get; set; }
         public int Amount { get; set; }

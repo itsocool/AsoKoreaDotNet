@@ -32,9 +32,9 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.treeView = new System.Windows.Forms.TreeView();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.asoAXCtrl1 = new AsoLibs.AsoAXCtrl();
             this.SuspendLayout();
             // 
             // button1
@@ -74,13 +74,6 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // treeView
-            // 
-            this.treeView.Location = new System.Drawing.Point(12, 12);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(317, 335);
-            this.treeView.TabIndex = 4;
-            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(403, 323);
@@ -101,14 +94,21 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // asoAXCtrl1
+            // 
+            this.asoAXCtrl1.Location = new System.Drawing.Point(28, 36);
+            this.asoAXCtrl1.Name = "asoAXCtrl1";
+            this.asoAXCtrl1.Size = new System.Drawing.Size(316, 150);
+            this.asoAXCtrl1.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 571);
+            this.ClientSize = new System.Drawing.Size(935, 430);
+            this.Controls.Add(this.asoAXCtrl1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.treeView);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listBox1);
@@ -126,9 +126,9 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private AsoLibs.AsoAXCtrl asoAXCtrl1;
     }
 }
 

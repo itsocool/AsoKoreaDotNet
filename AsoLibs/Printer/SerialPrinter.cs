@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AsoLibs.Printer
 {
-    class EpsonPrinter : IPrinter
+    class SerialPrinter : IPrinter
     {
         private SerialPort serialPort = null;
         private string[] ports = null;
@@ -41,12 +41,12 @@ namespace AsoLibs.Printer
             get { return ports; }
         }
 
-        public EpsonPrinter()
+        public SerialPrinter()
         {
             Init();
         }
 
-        ~EpsonPrinter()
+        ~SerialPrinter()
         {
             Close();
         }

@@ -29,10 +29,6 @@ namespace AsoLibs.Printer
         string reset = "\x1B\x21\x00";
         string cut = "\x1D\x56\x01";
 
-        public LANPrinter()
-        {
-        }
-
         public LANPrinter(string ip, int port)
         {
             this.ip = ip;
@@ -54,34 +50,24 @@ namespace AsoLibs.Printer
             return 0;
         }
 
-        public int Print(string data, int printMode)
+        public int Print(string data, int printMode = 1)
         {
             IPAddress ipaddress = IPAddress.Parse(ip);
             IPEndPoint ipep = new IPEndPoint(ipaddress, port);
             NetworkStream writeStream = null;
 
-            try
+            client = new TcpClient();
+            client.Connect(ipep);
+
+            if (printMode == 1)
             {
-                client = new TcpClient();
-                client.Connect(ipep);
+                data = paresPrintString(data);      // 태그를 이용한 메세지 파싱
+            }
 
-                data = paresPrintString(data);
-
+            using (writeStream = client.GetStream())
+            {
                 byte[] bytes = Encoding.Default.GetBytes(data);
-
-                writeStream = client.GetStream();
                 writeStream.Write(bytes, 0, bytes.Length);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                writeStream.Close();
-                writeStream.Dispose();
-                writeStream = null;
-                Close();
             }
 
             return 0;
@@ -140,12 +126,16 @@ namespace AsoLibs.Printer
             string result = string.Empty;
 
             result = src;
+            // 단일 태그
             result = result.Replace("<i/>", init);
             result = result.Replace("<left/>", left);
             result = result.Replace("<center/>", center);
             result = result.Replace("<right/>", right);
             result = result.Replace("<br/>", br);
+            result = result.Replace("<reset/>", reset);
+            result = result.Replace("<cut/>", cut);
 
+            // 시작태그 종료 태그
             result = result.Replace("<u>", u_start);
             result = result.Replace("</u>", u_end);
 
@@ -158,8 +148,6 @@ namespace AsoLibs.Printer
             result = result.Replace("<dh>", dh_start);
             result = result.Replace("</dh>", dh_end);
 
-            result = result.Replace("<reset/>", reset);
-            result = result.Replace("<cut/>", cut);
             result = parseBarcode(result);
 
             return result;

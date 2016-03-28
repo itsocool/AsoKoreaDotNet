@@ -14,48 +14,47 @@ namespace AsoLibs.POS
         public RecvVO Send(SendVO sendVO)
         {
             RecvVO recvVO = null;
-            byte[] recvData = new byte[2000];
+            byte[] recvData = null;
             Int32 returnValue = 0;
 
-            //try
-            //{
-            //    string ip = sendVO.Ip;
-            //    int port = sendVO.Port;
-            //    string amount = Convert.ToString(sendVO.Amount);
-            //    string halbu = sendVO.Halbu;
-            //    string gubun = sendVO.Gubun;
-            //    string orgAuthDate = sendVO.AuthDate;
-            //    string orgAuthNo = sendVO.AuthNo;
+            try
+            {
+                string ip = sendVO.Ip;
+                int port = sendVO.Port;
+                string amount = sendVO.Amount.ToString();
+                string halbu = sendVO.Halbu;
+                string gubun = sendVO.Gubun;
+                string authDate = sendVO.AuthDate;
+                string authNo = sendVO.AuthNo;
 
-            //    string STX = ((char)0x02).ToString();
-            //    string ETX = ((char)0x03).ToString();
-            //    string FS = ((char)0x1C).ToString();
+                string STX = ((char)0x02).ToString();
+                string ETX = ((char)0x03).ToString();
+                string FS = ((char)0x1C).ToString();
 
-            //    halbu = "00";
-            //    amount = "000001004";
+                string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + amount + FS + FS + FS + FS + FS + ETX;
+                sendData = "***";
+                byte[] sendBytes = Encoding.Default.GetBytes(sendData);
+                recvData = new byte[2000];
+                returnValue = ReqToCat(Encoding.Default.GetBytes(ip), port, sendBytes, recvData);
+                string result = Encoding.Default.GetString(recvData);
+                recvVO = new RecvVO();
+                recvVO.ReturnValue = Convert.ToString(returnValue);
+                recvVO.ReturnMessage = Encoding.Default.GetString(recvData);
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message);
+                MessageBox.Show(e.StackTrace);
+                if (recvVO == null)
+                {
+                    recvVO = new RecvVO();
+                    recvVO.ReturnValue = "-1";
+                }
+                //else if (recvVO.GetValue(1) == null)
 
-            //    string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + amount + FS + FS + FS + FS + FS + ETX;
-            //    sendData = STX + "D5" + FS + ETX;
-            //    sendData = "***";
-            //    byte[] sendBytes = Encoding.Default.GetBytes(sendData);
-
-            //    returnValue = ReqToCat(Encoding.Default.GetBytes(ip), 5000, sendBytes, recvData);
-            //    string result = Encoding.Default.GetString(recvData);
-            //    recvVO = new RecvVO((int)returnValue, result);
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.Write(e.Message);
-            //    MessageBox.Show(e.Message);
-            //    if (recvVO == null)
-            //    {
-            //        recvVO = new RecvVO((int)returnValue, "    N");
-            //    }
-            //    else if (recvVO.GetValue(1) == null)
-
-            //        recvVO.ReturnValue = -1;
-            //    return recvVO;
-            //}
+                //    recvVO.ReturnValue = -1;
+                return recvVO;
+            }
 
             return recvVO;
         }

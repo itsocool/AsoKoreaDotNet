@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -17,9 +12,14 @@ using System.Threading;
 
 namespace AsoLibs
 {
+    
+    [ClassInterface(ClassInterfaceType.None)]
+    [ComSourceInterfaces(typeof(IComEvents))]
+    [Guid("74B59E87-303F-41BF-92E4-8CA6D44477A9")]
+    [ProgId("AsoLibs.AsoPOSActivexControl")]
     public partial class AsoActiveXControl : UserControl, IAsoActiveXControl, IObjectSafety
     {
-        public GlobalConfig config = GlobalConfig.Instance;
+        public GlobalConfig config = null;
         private IPOS pos;
         private IPrinter printer;
 
@@ -101,6 +101,7 @@ namespace AsoLibs
 
             // Raise custom Load event
             this.OnCreateControl();
+            //config = GlobalConfig.Instance;
         }
 
         // Ensures that tabbing across the container and the .NET controls
@@ -231,7 +232,20 @@ namespace AsoLibs
         public string IP { get; set; }
         public int Port { get; set; }
         public string PrinterMode { get; set; }
-        public string PrinterWidth { get; set; }
+        public int PrinterWidth { get; set; }
+
+        public GlobalConfig Config
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         #endregion
 
@@ -276,7 +290,7 @@ namespace AsoLibs
         {
             try
             {
-                msg = config.VanProvider + " AX echoed : " + msg;
+                msg = " AX echoed : " + msg;
                 MessageBox.Show(msg);
             }
             catch (Exception ex)
@@ -380,16 +394,16 @@ namespace AsoLibs
 
         public void Print(string msg, int printMode)
         {
-            string printerType = config.Printer.ToString();
+            //string printerType = printer.ToString();
 
-            if (printerType.Equals("EPSON"))
-            {
-                printer = new EpsonPrinter();
-            }
-            else
-            {
-                printer = new LANPrinter(config.Ip, config.Port);
-            }
+            //if (printerType.Equals("EPSON"))
+            //{
+            //    printer = new SerialPrinter();
+            //}
+            //else
+            //{
+            //    printer = new LANPrinter(IP, Port);
+            //}
 
             printer.Init();
 
@@ -398,7 +412,7 @@ namespace AsoLibs
                 printer.Open();
             }
 
-            printer.Width = config.PrinterWidth;
+            printer.Width = PrinterWidth;
             printer.Print(msg, printMode);
 
             if (printMode == 2)
@@ -414,8 +428,8 @@ namespace AsoLibs
         {
             SendVO vo = new SendVO()
             {
-                VANProvider = config.VanProvider.ToString()
-                , Ip = config.Ip
+                Van = Van
+                , Ip = IP
                 , Amount = amount
                 , Gubun = gubun
                 , Halbu = halbu
@@ -431,9 +445,36 @@ namespace AsoLibs
             throw new NotImplementedException();
         }
 
-        public string GetPOSInfo()
+        public ConfigVO GetPOSInfo()
         {
-            throw new NotImplementedException();
+            ConfigVO result = new ConfigVO()
+            {
+                Desc = ""
+                ,Ip = IP
+                ,Port = Port
+                ,Printer = ""
+                ,PrinterPort = ""
+                ,PrinterWidth = PrinterWidth
+                ,TestPrintMessage = ""
+                ,Van = Van
+            };
+
+            return result;
+        }
+
+        public void initPOS(ConfigVO vo)
+        {
+            if(vo != null)
+            {
+                //config.Desc = vo.Desc;
+                //config.Ip = vo.Ip;
+                //config.Port = vo.Port;
+                //config.Printer = (Printers)Enum.Parse(typeof(Printers), vo.Printer);
+                //config.PrinterPort = vo.PrinterPort;
+                //config.PrinterWidth = vo.PrinterWidth;
+                //config.TestPrintMessage = vo.TestPrintMessage;
+                //config.Van = (VANs)Enum.Parse(typeof(VANs), vo.Van);
+            }
         }
 
         #endregion

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <global>
-    <van>KOVAN</van>
+    <van>NICE</van>
     <ip>192.168.0.111</ip>
     <port>5000</port>
-    <desc>코벤용 설정</desc>
+    <desc>나이스 설정</desc>
     <printer>IP</printer>
     <printerPort>COM3</printerPort>
     <printerWidth>48</printerWidth>
