@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace AsoLibs.VO
 {
+    [Serializable]
     public class CardItemVO
     {
 		public string SN;

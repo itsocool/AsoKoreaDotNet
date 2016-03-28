@@ -21,10 +21,14 @@ namespace AsoLibs
 
         #region Methods
 
+        ConfigVO GetPOSInfo();
+
+        void initPOS(ConfigVO vo); 
+
         string Echo(string msg);
 
         [Obsolete("구버전 승인 함수, 추후 삭제예정 사용 금지")]
-        object CreditCardApprove(int amount, string halbu, int gubun, string org_auth_date, string org_auth_no);
+        object CreditCardApprove(int amount, string halbu, int gubun, string authDate, string authNo);
 
         RecvVO Send(SendVO vo);
 

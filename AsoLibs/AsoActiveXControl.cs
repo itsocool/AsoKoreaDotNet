@@ -235,6 +235,31 @@ namespace AsoLibs
 
         #endregion
 
+        #region Events
+
+        // This section shows the examples of exposing a control's events.
+        // Typically, you just need to
+        // 1) Declare the event as you want it.
+        // 2) Raise the event in the appropriate control event.
+
+        [ComVisible(false)]
+        public delegate void ClickEventHandler();
+        public new event ClickEventHandler Click = null;
+        void ActiveXCtrl_Click(object sender, EventArgs e)
+        {
+            if (null != Click) Click(); // Raise the new Click event.
+        }
+
+        [ComVisible(false)]
+        public delegate void FloatPropertyChangingEventHandler(float NewValue, ref bool Cancel);
+        public event FloatPropertyChangingEventHandler FloatPropertyChanging = null;
+
+        [ComVisible(false)]
+        public delegate void TestStringChangeEventHandler(string str);
+        public event TestStringChangeEventHandler TestStringChange = null;
+
+        #endregion
+
         #region Methods
         
         public string SetPrintPort(string portName)
@@ -406,30 +431,10 @@ namespace AsoLibs
             throw new NotImplementedException();
         }
 
-        #endregion
-
-        #region Events
-
-        // This section shows the examples of exposing a control's events.
-        // Typically, you just need to
-        // 1) Declare the event as you want it.
-        // 2) Raise the event in the appropriate control event.
-
-        [ComVisible(false)]
-        public delegate void ClickEventHandler();
-        public new event ClickEventHandler Click = null;
-        void ActiveXCtrl_Click(object sender, EventArgs e)
+        public string GetPOSInfo()
         {
-            if (null != Click) Click(); // Raise the new Click event.
+            throw new NotImplementedException();
         }
-
-        [ComVisible(false)]
-        public delegate void FloatPropertyChangingEventHandler(float NewValue, ref bool Cancel);
-        public event FloatPropertyChangingEventHandler FloatPropertyChanging = null;
-
-        [ComVisible(false)]
-        public delegate void TestStringChangeEventHandler(string str);
-        public event TestStringChangeEventHandler TestStringChange = null;
 
         #endregion
 

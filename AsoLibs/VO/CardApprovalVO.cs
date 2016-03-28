@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace AsoLibs.VO
 {
+    [Serializable]
     public class CardApprovalVO
     {
         static public readonly int[] bytes = new int[] {
