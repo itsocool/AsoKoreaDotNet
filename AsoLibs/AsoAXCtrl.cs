@@ -21,8 +21,9 @@ namespace AsoLibs
     [ProgId("AsoLibs.AsoAXCtrl")]
     public partial class AsoAXCtrl : UserControl, IAsoActiveXControl, IObjectSafety
     {
-        private IPOS pos = null;
-        private IPrinter printer = null;
+        private ConfigVO configVO = null;
+        //private IPOS pos = null;
+        //private IPrinter printer = null;
 
         #region Initialization
 
@@ -41,8 +42,8 @@ namespace AsoLibs
 
             // Raise custom Load event
             this.OnCreateControl();
-            Config = GlobalConfig.Instance;
-            textBox2.Text = Config.XmlDoc.OuterXml;
+            GlobalConfig config = GlobalConfig.Instance;
+            rtbConfig.Text = config.XmlDoc.ToString();
         }
 
         // Ensures that tabbing across the container and the .NET controls
@@ -199,15 +200,11 @@ namespace AsoLibs
         public delegate void TestStringChangeEventHandler(string str);
         public event TestStringChangeEventHandler TestStringChange = null;
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
-
         #endregion
 
         #region Properties
 
-        public GlobalConfig Config { get; set; }
+        //public GlobalConfig Config { get; set; }
 
         public new int ForeColor
         {
@@ -227,27 +224,51 @@ namespace AsoLibs
 
         public string Echo(string msg)
         {
+            msg = "ax echode : " + msg;
+            MessageBox.Show(msg);
+
+            return msg;
+        }
+
+        public object Test(object obj)
+        {
+            string msg = null;
+            ConfigVO cvo = null;
+
             try
             {
-                msg = "";
-                msg += Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                msg += "<br/><br/>";
-                msg += Config.XmlDoc.OuterXml.ToString();
-                msg += "<br/><br/>";
-                msg += "<b>이것은 b태그</b><br/>";
-                msg += "<dh>이것은 dh태그</dh><br/>";
-                msg += "<barcode>ABCD1234</barcode><br/>";
-                msg += "<cut/><br/><br/>";
+                string testMsg = "";
+                testMsg += Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                testMsg += "<br/><br/>";
+                testMsg += "<b>이것은 b태그</b><br/>";
+                testMsg += "<dh>이것은 dh태그</dh><br/>";
+                testMsg += "<barcode>ABCD1234</barcode><br/>";
+                testMsg += "<cut/><br/><br/>";
 
-                SendVO vo = new SendVO();
-                vo.Amount = 1234;
-                vo.Halbu = "00";
-                vo.Ip = "192.168.0.111";
-                vo.Port = 5000;
-                vo.Gubun = "CREDIT_APPROVAL";
-                vo.Van = "NICE";
+                cvo = obj as ConfigVO;
+                //cvo = new ConfigVO()
+                //{
+                //    Desc = "가라 설정",
+                //    Ip = "192.168.0.111",
+                //    Port = 5000,
+                //    Printer = Printers.LAN.ToString(),
+                //    PrinterPort = "5000",
+                //    PrinterWidth = 48,
+                //    TestPrintMessage = testMsg,
+                //    Van = VANs.KOVAN.ToString()
+                //};
 
-                RecvVO rvo = Send(vo);
+                Init(cvo);
+
+                SendVO svo = new SendVO();
+                svo.Amount = 1234;
+                svo.Halbu = "00";
+                svo.Ip = configVO.Ip;
+                svo.Port = configVO.Port;
+                svo.Gubun = ServiceCode.CREDIT_APPROVAL.ToString();
+                svo.Van = configVO.Van;
+
+                RecvVO rvo = Send(svo);
 
                 //msg = rvo.ReturnMessage;
                 //msg += "<cut/><br/><br/>";
@@ -261,77 +282,18 @@ namespace AsoLibs
             return msg;
         }
 
-        public object Test(object obj)
-        {
-            CardVO vo = new CardVO();
-            //RecvVO result = new RecvVO(0, null);
-
-            try
-            {
-                StringBuilder orgAuthDate = new StringBuilder();
-                StringBuilder orgAuthNo = new StringBuilder();
-                StringBuilder recvData = new StringBuilder();
-
-                StringBuilder rtn = new StringBuilder();
-
-                MessageBox.Show(rtn.ToString());
-                //result = CreditCardApprove(2000, "01", 1, "", "") as RecvVO;
-                //vo.billNo = "가라번호";
-                //result.rawData = "rawData";
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-
-            return null;
-        }
-
-        object IAsoActiveXControl.CreditCardApprove(int amount, string halbu, int gubun, string org_auth_date, string org_auth_no)
-        {
-            throw new NotImplementedException();
-        }
-
         public RecvVO Send(SendVO vo)
         {
+            IPOS pos = GetPOS();
             RecvVO result = null;
-            string van = Config.Van.ToString();
-            string ip = Config.Ip;
-            int port = Config.Port;
-
-            if ("NICE".Equals(van))
-            {
-                pos = new NicePOS();
-            }
-            else if ("KOVAN".Equals(van))
-            {
-                pos = new KoVanPOS();
-            }
-
             result = pos.Send(vo);
-            pos = null;
-
             return result;
         }
 
         public void Print(string msg, int printMode = 1)
         {
-            string printerType = Config.Printer.ToString();
-            string ip = Config.Ip;
-            int port = Config.Port;
-
-            if ("IP".Equals(printerType))
-            {
-                printer = new LANPrinter(ip, port);
-            }
-            else if ("SERIAL".Equals(printerType))
-            {
-                printer = new SerialPrinter();
-            }
-
-            printer.Width = Config.PrinterWidth;
+            IPrinter printer = GetPrinter();
             printer.Print(msg, printMode);
-
             printer.Close();
         }
 
@@ -339,18 +301,12 @@ namespace AsoLibs
         {
             SendVO vo = new SendVO()
             {
-                Van = Config.Van.ToString()
-                ,
-                Ip = Config.Ip
-                ,
-                Amount = amount
-                ,
-                Gubun = gubun
-                ,
-                Halbu = halbu
-                ,
-                AuthDate = org_auth_date
-                ,
+                Van = configVO.Van,
+                Ip = configVO.Ip,
+                Amount = amount,
+                Gubun = gubun,
+                Halbu = halbu,
+                AuthDate = org_auth_date,
                 AuthNo = org_auth_no
             };
 
@@ -364,45 +320,72 @@ namespace AsoLibs
 
         public ConfigVO GetPOSInfo()
         {
-            ConfigVO result = new ConfigVO()
-            {
-                Desc = Config.Desc
-                ,
-                Ip = Config.Ip
-                ,
-                Port = Config.Port
-                ,
-                Printer = Config.Printer.ToString()
-                ,
-                PrinterPort = Config.PrinterPort
-                ,
-                PrinterWidth = Config.PrinterWidth
-                ,
-                TestPrintMessage = Config.TestPrintMessage
-                ,
-                Van = Config.Van.ToString()
-            };
-
-            return result;
+            return configVO;
         }
 
-        public void initPOS(ConfigVO vo)
+        public void Init(ConfigVO vo)
         {
-            if (vo != null)
+            configVO = vo;
+        }
+
+        private IPOS GetPOS()
+        {
+            IPOS result = null;
+
+            if (configVO != null)
             {
-                //config.Desc = vo.Desc;
-                //config.Ip = vo.Ip;
-                //config.Port = vo.Port;
-                //config.Printer = (Printers)Enum.Parse(typeof(Printers), vo.Printer);
-                //config.PrinterPort = vo.PrinterPort;
-                //config.PrinterWidth = vo.PrinterWidth;
-                //config.TestPrintMessage = vo.TestPrintMessage;
-                //config.Van = (VANs)Enum.Parse(typeof(VANs), vo.Van);
+                if (VANs.KOVAN.ToString().Equals(configVO.Van))
+                {
+                    result = new KoVanPOS();
+                }
+                else if (VANs.NICE.ToString().Equals(configVO.Van))
+                {
+                    result = new NicePOS();
+                }
             }
+
+            return result;           
+        }
+
+        private IPrinter GetPrinter()
+        {
+            IPrinter result = null;
+
+            if (configVO != null)
+            {
+                if (Printers.LAN.ToString().Equals(configVO.Printer))
+                {
+                    int printerPort = Convert.ToInt32(configVO.PrinterPort);
+                    result = new LANPrinter(configVO.Ip, printerPort, configVO.PrinterWidth);
+                }
+                else if (Printers.SERIAL.ToString().Equals(configVO.Printer))
+                {
+                    result = new SerialPrinter();
+                }
+            }
+
+            return result;
         }
 
         #endregion
 
 
+        #region Event Handler
+
+        private void AsoAXCtrl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnApproval_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
     }
 }

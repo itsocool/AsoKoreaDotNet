@@ -7,7 +7,7 @@ using AsoLibs.VO;
 
 namespace AsoLibs.Message
 {
-    public class NiceMessage : IMessage
+    public class KoVanMessage : IMessage
     {
         private SendVO innerSendVO = null;
         private string sendString = null;

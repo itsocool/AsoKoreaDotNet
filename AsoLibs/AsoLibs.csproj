@@ -79,6 +79,7 @@
     <Compile Include="IComEvents.cs" />
     <Compile Include="IObjectSafety.cs" />
     <Compile Include="Message\IMessage.cs" />
+    <Compile Include="Message\KoVanMessage.cs" />
     <Compile Include="Message\NiceMessage.cs" />
     <Compile Include="POS\IPOS.cs" />
     <Compile Include="POS\NicePOS.cs" />

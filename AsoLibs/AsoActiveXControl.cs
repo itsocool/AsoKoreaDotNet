@@ -19,7 +19,7 @@ namespace AsoLibs
     [ProgId("AsoLibs.AsoPOSActivexControl")]
     public partial class AsoActiveXControl : UserControl, IAsoActiveXControl, IObjectSafety
     {
-        public GlobalConfig config = null;
+        //public GlobalConfig config = null;
         private IPOS pos;
         private IPrinter printer;
 
@@ -38,7 +38,6 @@ namespace AsoLibs
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message); // Log the error
-                throw;  // Re-throw the exception
             }
         }
 
@@ -53,7 +52,6 @@ namespace AsoLibs
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message); // Log the error
-                throw; // Re-throw the exception
             }
         }
 
@@ -381,10 +379,10 @@ namespace AsoLibs
         //    return result;
         //}
 
-        object IAsoActiveXControl.CreditCardApprove(int amount, string halbu, int gubun, string org_auth_date, string org_auth_no)
-        {
-            throw new NotImplementedException();
-        }
+        //object IAsoActiveXControl.CreditCardApprove(int amount, string halbu, int gubun, string org_auth_date, string org_auth_no)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public RecvVO Send(SendVO vo)
         {
@@ -462,7 +460,7 @@ namespace AsoLibs
             return result;
         }
 
-        public void initPOS(ConfigVO vo)
+        public void Init(ConfigVO vo)
         {
             if(vo != null)
             {

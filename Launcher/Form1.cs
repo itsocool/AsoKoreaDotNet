@@ -11,24 +11,11 @@ namespace Launcher
 {
     public partial class Form1 : Form
     {
-        public AsoActiveXControl oldAx = new AsoActiveXControl();
         public XmlDocument xmlDoc;
 
         public Form1()
         {
             InitializeComponent();
-            Version version = Assembly.GetEntryAssembly().GetName().Version;
-            this.Text += " " + version.ToString();
-            //xmlDoc = ax.config.XmlDoc;
-            //treeBinding(xmlDoc, treeView);
-        }
-
-        private void treeBinding(XmlDocument xml, TreeView tree)
-        {
-            XmlNode node = xml.SelectSingleNode("config");
-            tree.Nodes.Clear();
-            ConvertXmlNodeToTreeNode(node, tree.Nodes);
-            tree.Nodes[0].ExpandAll();
         }
 
         private void ConvertXmlNodeToTreeNode(XmlNode xmlNode, TreeNodeCollection treeNodes)
@@ -71,78 +58,48 @@ namespace Launcher
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+        //private void button2_Click(object sender, EventArgs e)
+        //{
+        //    string msg = "<br/><br/><s><br/><br/><center/>영수증 입니다</s><br/><br/><br/><br/>";
+        //    msg += "<barcode>barcode1234</barcode>";
+        //    msg += "<br/><br/>";
+        //    msg += "<cut/>";
 
+        //    oldAx.Print(msg, 1);
+        //}
 
-            StringBuilder recv_data = null;
-            int rtn = -1;
-            //string[] ports = ax.GetPrinterPorts();
-            //listBox1.DataSource = ports;
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+        //    asoAXCtrl1.Echo("");
+        //}
 
-            try
-            {
-                RecvVO vo = oldAx.Send(null);
-                //CardApprovalVO vo = ax.Send(2000, "00", 1, null, null) as CardApprovalVO;
-                recv_data = new StringBuilder();
+        //private void button4_Click(object sender, EventArgs e)
+        //{
+        //    int returnValue = -1;
+        //    string ip = "192.168.0.111";
+        //    int port = 5000;
+        //    string amount = "1004";
+        //    string halbu = "00";
 
-                //if (vo is CardApprovalVO)
-                //{
-                //    rtn = vo.ReturnValue;
-                //    textBox1.Text = "ReturnValue:" + vo.ReturnValue.ToString();
-                //    textBox1.Text += "\n";
-                //    textBox1.Text += "IsApproved:" + vo.is_confirm.ToString();
-                //}
-                MessageBox.Show(recv_data.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //    string STX = ((char)0x02).ToString();
+        //    string ETX = ((char)0x03).ToString();
+        //    string FS = ((char)0x1C).ToString();
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            string msg = "<br/><br/><s><br/><br/><center/>영수증 입니다</s><br/><br/><br/><br/>";
-            msg += "<barcode>barcode1234</barcode>";
-            msg += "<br/><br/>";
-            msg += "<cut/>";
-
-            oldAx.Print(msg, 1);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            asoAXCtrl1.Echo("");
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            int returnValue = -1;
-            string ip = "192.168.0.111";
-            int port = 5000;
-            string amount = "1004";
-            string halbu = "00";
-
-            string STX = ((char)0x02).ToString();
-            string ETX = ((char)0x03).ToString();
-            string FS = ((char)0x1C).ToString();
-
-            try
-            {
-                string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + amount + FS + FS + FS + FS + FS + ETX;
-                StringBuilder recvByte = new StringBuilder();
-                //returnValue = NicePOS.ReqToCat(ip, port, sendData, recvByte);
-                //IPOS pos = new KoVanPOS();
-                IPOS pos = new NicePOS();
-                RecvVO vo = pos.Send(null);
-                string result = vo.ReturnValue.ToString();
-                MessageBox.Show(result);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //    try
+        //    {
+        //        string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + amount + FS + FS + FS + FS + FS + ETX;
+        //        StringBuilder recvByte = new StringBuilder();
+        //        //returnValue = NicePOS.ReqToCat(ip, port, sendData, recvByte);
+        //        //IPOS pos = new KoVanPOS();
+        //        IPOS pos = new NicePOS();
+        //        RecvVO vo = pos.Send(null);
+        //        string result = vo.ReturnValue.ToString();
+        //        MessageBox.Show(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
     }
 }

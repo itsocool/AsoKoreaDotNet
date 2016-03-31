@@ -128,7 +128,15 @@ namespace AsoLibs.config
     {
         DEFAULT,
         SERIAL,
-        IP,
+        LAN,
+    };
+
+    public enum ServiceCode
+    {
+        CREDIT_APPROVAL,
+        CREDIT_CANCEL,
+        CASH_APPROVAL,
+        CASH_CANCEL
     };
 
 }

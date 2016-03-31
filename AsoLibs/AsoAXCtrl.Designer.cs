@@ -28,67 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.cmbVan = new System.Windows.Forms.ComboBox();
+            this.rtbConfig = new System.Windows.Forms.RichTextBox();
+            this.btnApproval = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // btnPrint
             // 
-            this.button1.Location = new System.Drawing.Point(429, 104);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Click";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrint.Location = new System.Drawing.Point(319, 29);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(73, 23);
+            this.btnPrint.TabIndex = 0;
+            this.btnPrint.Text = "Just Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(500, 224);
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(377, 80);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.Size = new System.Drawing.Size(98, 21);
             this.textBox1.TabIndex = 1;
             // 
             // checkBox1
             // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(493, 148);
+            this.checkBox1.Location = new System.Drawing.Point(413, 58);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(64, 16);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.Text = "check7";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cmbVan
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(480, 189);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 3;
+            this.cmbVan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbVan.FormattingEnabled = true;
+            this.cmbVan.Items.AddRange(new object[] {
+            "KOVAN",
+            "NICE"});
+            this.cmbVan.Location = new System.Drawing.Point(319, 3);
+            this.cmbVan.Name = "cmbVan";
+            this.cmbVan.Size = new System.Drawing.Size(156, 20);
+            this.cmbVan.TabIndex = 3;
             // 
-            // textBox2
+            // rtbConfig
             // 
-            this.textBox2.Location = new System.Drawing.Point(13, 12);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(410, 385);
-            this.textBox2.TabIndex = 4;
+            this.rtbConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.rtbConfig.Location = new System.Drawing.Point(3, 3);
+            this.rtbConfig.Name = "rtbConfig";
+            this.rtbConfig.Size = new System.Drawing.Size(310, 192);
+            this.rtbConfig.TabIndex = 4;
+            this.rtbConfig.Text = "";
+            // 
+            // btnApproval
+            // 
+            this.btnApproval.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnApproval.Location = new System.Drawing.Point(402, 29);
+            this.btnApproval.Name = "btnApproval";
+            this.btnApproval.Size = new System.Drawing.Size(73, 23);
+            this.btnApproval.TabIndex = 5;
+            this.btnApproval.Text = "Approval";
+            this.btnApproval.UseVisualStyleBackColor = true;
+            this.btnApproval.Click += new System.EventHandler(this.btnApproval_Click);
             // 
             // AsoAXCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.comboBox1);
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.btnApproval);
+            this.Controls.Add(this.rtbConfig);
+            this.Controls.Add(this.cmbVan);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnPrint);
             this.Name = "AsoAXCtrl";
-            this.Size = new System.Drawing.Size(640, 480);
+            this.Size = new System.Drawing.Size(478, 198);
+            this.Load += new System.EventHandler(this.AsoAXCtrl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,10 +125,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox cmbVan;
+        private System.Windows.Forms.RichTextBox rtbConfig;
+        private System.Windows.Forms.Button btnApproval;
     }
 }

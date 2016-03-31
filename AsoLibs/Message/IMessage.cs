@@ -9,10 +9,9 @@ namespace AsoLibs.Message
 {
     public interface IMessage
     {
-        string SendString { get; set; }
-        string RecvString { get; set; }
+        SendVO sendVO { get; set; }
 
-        void SetSendVO(SendVO vo);
+        string getServiceCode(string gubun);
 
         byte[] ToByteArray();
 

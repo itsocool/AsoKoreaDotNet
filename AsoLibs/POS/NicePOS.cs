@@ -47,7 +47,7 @@ namespace AsoLibs.POS
                     {
                         stream.Flush();
                         message = new NiceMessage();
-                        message.SetSendVO(vo);
+                        message.sendVO = vo;
                         sendBytes = message.ToByteArray();
                         stream.Write(sendBytes, 0, sendBytes.Length);
                         Thread.Sleep(100);

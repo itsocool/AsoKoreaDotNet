@@ -10,14 +10,8 @@ namespace AsoLibs
     {
         #region Properties
 
-        GlobalConfig Config { get; set; }
         int ForeColor { get; set; }         // Typical control property
         int BackColor { get; set; }         // Typical control property
-        //string Van { get; set; }
-        //string IP { get; set; }
-        //int Port { get; set; }
-        //string PrinterMode { get; set; }
-        //int PrinterWidth { get; set; }
 
         #endregion
 
@@ -25,12 +19,9 @@ namespace AsoLibs
 
         ConfigVO GetPOSInfo();
 
-        void initPOS(ConfigVO vo); 
+        void Init(ConfigVO vo); 
 
         string Echo(string msg);
-
-        [Obsolete("구버전 승인 함수, 추후 삭제예정 사용 금지")]
-        object CreditCardApprove(int amount, string halbu, int gubun, string authDate, string authNo);
 
         RecvVO Send(SendVO vo);
 

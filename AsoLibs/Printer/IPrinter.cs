@@ -9,6 +9,9 @@ namespace AsoLibs.Printer
     interface IPrinter
     {
         string[] Ports{get;}
+        int Width { get; set; }
+        string PortName { get; set; }
+        bool IsOpen { get; }
         int Open();
         int Init();
         int Print(String data, int printMode);
@@ -16,10 +19,5 @@ namespace AsoLibs.Printer
         int Cut();
         int Close();
         int Beep();
-        int Width { get; set; }
-
-        string PortName { get; set; }
-
-        bool IsOpen { get; }
     }
 }

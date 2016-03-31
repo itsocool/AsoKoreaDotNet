@@ -7,11 +7,11 @@ namespace AsoLibs.Printer
 {
     public class LANPrinter : IPrinter
     {
+        #region Init
+
         private TcpClient client = null;
         private string ip;
         private int port;
-        private int width;
-        private bool isOpen;
 
         string init = "\x1B\x40";
         string left = "\x1B\x61\x00";
@@ -29,16 +29,31 @@ namespace AsoLibs.Printer
         string reset = "\x1B\x21\x00";
         string cut = "\x1D\x56\x01";
 
-        public LANPrinter(string ip, int port)
+        public LANPrinter(string ip, int printerPort, int printerWidth)
         {
             this.ip = ip;
-            this.port = port;
+            this.port = printerPort;
+            this.Width = printerWidth;
         }
+
+        #endregion
+
+        #region Properties
 
         public string[] Ports
         {
             get { throw new NotImplementedException(); }
         }
+
+        public int Width { get; set; }
+
+        public bool IsOpen { get; private set; }
+
+        public string PortName { get; set; }
+
+        #endregion
+
+        #region IPrinter Member
 
         public int Open()
         {
@@ -61,7 +76,7 @@ namespace AsoLibs.Printer
 
             if (printMode == 1)
             {
-                data = paresPrintString(data);      // 태그를 이용한 메세지 파싱
+                data = ParsePrintString(data);      // 태그를 이용한 메세지 파싱
             }
 
             using (writeStream = client.GetStream())
@@ -92,7 +107,7 @@ namespace AsoLibs.Printer
             {
                 client.Close();
                 client = null;
-                isOpen = false;
+                IsOpen = false;
             }
 
             return 0;
@@ -103,28 +118,11 @@ namespace AsoLibs.Printer
             return 0;
         }
 
-        public int Width
-        {
-            get
-            {
-                return width;
-            }
+        #endregion
 
-            set
-            {
-                width = value;
-            }
-        }
+        #region Method
 
-        public bool IsOpen
-        {
-            get
-            {
-                return isOpen;
-            }
-        }
-
-        private string paresPrintString(string src)
+        private string ParsePrintString(string src)
         {
             string result = string.Empty;
 
@@ -151,22 +149,22 @@ namespace AsoLibs.Printer
             result = result.Replace("<dh>", dh_start);
             result = result.Replace("</dh>", dh_end);
 
-            result = parseBarcode(result);
+            result = ParseBarcode(result);
 
             return result;
         }
 
-        private string parseBarcode(string src)
+        private string ParseBarcode(string src)
         {
             string barcode_start = "<barcode>";
             string barcode_end = "</barcode>";
 
             string result = src;
 
-            while (result.IndexOf(barcode_start) >= 0)
+            while (result.IndexOf(barcode_start, StringComparison.CurrentCulture) >= 0)
             {
-                int s = result.IndexOf(barcode_start);
-                int e = result.IndexOf(barcode_end);
+                int s = result.IndexOf(barcode_start, StringComparison.CurrentCulture);
+                int e = result.IndexOf(barcode_end, StringComparison.CurrentCulture);
                 string txt = result.Substring(s + barcode_start.Length, e - s - barcode_end.Length + 1);
                 string tmp = br + center + "\x1D\x68\x40\x1D\x6B\x49" + (char)txt.Length + txt + br;
 
@@ -176,6 +174,6 @@ namespace AsoLibs.Printer
             return result;
         }
 
-        public string PortName { get; set; }
+        #endregion
     }
 }
