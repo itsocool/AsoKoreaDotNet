@@ -78,6 +78,8 @@
     <Compile Include="IAsoActiveXControl.cs" />
     <Compile Include="IComEvents.cs" />
     <Compile Include="IObjectSafety.cs" />
+    <Compile Include="Message\IMessage.cs" />
+    <Compile Include="Message\NiceMessage.cs" />
     <Compile Include="POS\IPOS.cs" />
     <Compile Include="POS\NicePOS.cs" />
     <Compile Include="POS\KoVanPOS.cs" />

@@ -239,11 +239,19 @@ namespace AsoLibs
                 msg += "<barcode>ABCD1234</barcode><br/>";
                 msg += "<cut/><br/><br/>";
 
-                //RecvVO rvo = Send(null);
+                SendVO vo = new SendVO();
+                vo.Amount = 1234;
+                vo.Halbu = "00";
+                vo.Ip = "192.168.0.111";
+                vo.Port = 5000;
+                vo.Gubun = "CREDIT_APPROVAL";
+                vo.Van = "NICE";
+
+                RecvVO rvo = Send(vo);
 
                 //msg = rvo.ReturnMessage;
                 //msg += "<cut/><br/><br/>";
-                Print(msg);
+                //Print(msg);
             }
             catch (Exception ex)
             {
@@ -299,14 +307,6 @@ namespace AsoLibs
             {
                 pos = new KoVanPOS();
             }
-
-            vo = new SendVO();
-            vo.Ip = ip;
-            vo.Port = port;
-            vo.Amount = 1000;
-            vo.Gubun = "D1";
-            vo.Halbu = "00";
-            vo.Van = van;
 
             result = pos.Send(vo);
             pos = null;

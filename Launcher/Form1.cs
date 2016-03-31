@@ -11,7 +11,7 @@ namespace Launcher
 {
     public partial class Form1 : Form
     {
-        public AsoActiveXControl ax = new AsoActiveXControl();
+        public AsoActiveXControl oldAx = new AsoActiveXControl();
         public XmlDocument xmlDoc;
 
         public Form1()
@@ -73,6 +73,8 @@ namespace Launcher
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+
             StringBuilder recv_data = null;
             int rtn = -1;
             //string[] ports = ax.GetPrinterPorts();
@@ -80,7 +82,7 @@ namespace Launcher
 
             try
             {
-                RecvVO vo = ax.Send(null);
+                RecvVO vo = oldAx.Send(null);
                 //CardApprovalVO vo = ax.Send(2000, "00", 1, null, null) as CardApprovalVO;
                 recv_data = new StringBuilder();
 
@@ -106,17 +108,12 @@ namespace Launcher
             msg += "<br/><br/>";
             msg += "<cut/>";
 
-            ax.Print(msg, 1);
+            oldAx.Print(msg, 1);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form formSub = new Form();
-            formSub.Width = 800;
-            formSub.Height = 400;
-            formSub.Top = 100;
-            formSub.Left = 100;
-            formSub.Show();
+            asoAXCtrl1.Echo("");
         }
 
         private void button4_Click(object sender, EventArgs e)

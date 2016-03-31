@@ -70,6 +70,9 @@ namespace AsoLibs.Printer
                 writeStream.Write(bytes, 0, bytes.Length);
             }
 
+            client.Close();
+            client = null;
+
             return 0;
         }
 
