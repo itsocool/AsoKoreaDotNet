@@ -38,6 +38,7 @@
             this.asoAXCtrl1.Name = "asoAXCtrl1";
             this.asoAXCtrl1.Size = new System.Drawing.Size(480, 200);
             this.asoAXCtrl1.TabIndex = 7;
+            this.asoAXCtrl1.Load += new System.EventHandler(this.asoAXCtrl1_Load);
             // 
             // Form1
             // 

@@ -33,7 +33,7 @@ namespace AsoLibs.Message
 
             if(innerSendVO != null)
             {
-                serviceCode = getServiceCode(innerSendVO.Gubun);
+                serviceCode = getServiceCode(innerSendVO.ServiceCode);
                 result = MessageConst.STX.ToString();
                 result += serviceCode;
                 result += MessageConst.FS.ToString();

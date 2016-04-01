@@ -11,6 +11,7 @@ using System.Threading;
 using AsoLibs.config;
 using System.IO;
 using System.Reflection;
+using System.Xml;
 
 namespace AsoLibs
 {
@@ -42,8 +43,6 @@ namespace AsoLibs
 
             // Raise custom Load event
             this.OnCreateControl();
-            GlobalConfig config = GlobalConfig.Instance;
-            rtbConfig.Text = config.XmlDoc.ToString();
         }
 
         // Ensures that tabbing across the container and the .NET controls
@@ -265,7 +264,7 @@ namespace AsoLibs
                 svo.Halbu = "00";
                 svo.Ip = configVO.Ip;
                 svo.Port = configVO.Port;
-                svo.Gubun = ServiceCode.CREDIT_APPROVAL.ToString();
+                svo.ServiceCode = ServiceCode.CREDIT_APPROVAL.ToString();
                 svo.Van = configVO.Van;
 
                 RecvVO rvo = Send(svo);
@@ -292,22 +291,26 @@ namespace AsoLibs
 
         public void Print(string msg, int printMode = 1)
         {
-            IPrinter printer = GetPrinter();
-            printer.Print(msg, printMode);
-            printer.Close();
+            if(configVO != null)
+            {
+                IPrinter printer = GetPrinter();
+                printer.Print(msg, printMode);
+                printer.Close();
+            }
         }
 
-        public SendVO CreateSendVO(int amount, string halbu, string gubun, string org_auth_date, string org_auth_no)
+        public SendVO CreateSendVO(int amount, string halbu, string serviceCode, string authDate, string authNo)
         {
             SendVO vo = new SendVO()
             {
                 Van = configVO.Van,
                 Ip = configVO.Ip,
+                Port = configVO.Port,                
                 Amount = amount,
-                Gubun = gubun,
+                ServiceCode = serviceCode,
                 Halbu = halbu,
-                AuthDate = org_auth_date,
-                AuthNo = org_auth_no
+                AuthDate = (authDate != null) ? authDate : "",
+                AuthNo = (authNo != null) ? authNo : ""
             };
 
             return vo;
@@ -374,15 +377,36 @@ namespace AsoLibs
 
         private void AsoAXCtrl_Load(object sender, EventArgs e)
         {
+            GlobalConfig config = GlobalConfig.Instance;
+            StringBuilder sb = new StringBuilder();
+            
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Encoding = Encoding.UTF8,
+                Indent = true,
+                IndentChars = "  ",
+                NewLineChars = "\r\n",
+                NewLineHandling = NewLineHandling.Replace
+            };
+            using (XmlWriter writer = XmlWriter.Create(sb, settings))
+            {
+                config.XmlDoc.Save(writer);
+            }
+            rtbConfig.Text = sb.ToString();
 
+
+            cmbVan.SelectedIndex = 0;
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            Print(configVO.TestPrintMessage);
         }
 
         private void btnApproval_Click(object sender, EventArgs e)
         {
+            SendVO sendVO = CreateSendVO(1234, "00", ServiceCode.CREDIT_APPROVAL.ToString(), null, null);
+            RecvVO recvVO = Send(sendVO);
 
         }
 

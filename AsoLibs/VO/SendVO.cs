@@ -11,7 +11,7 @@ namespace AsoLibs.VO
         public int Port { get; set; }
         public int Amount { get; set; }
         public string Halbu { get; set; }
-        public string Gubun { get; set; }
+        public string ServiceCode { get; set; }
         public string AuthDate { get; set; }
         public string AuthNo { get; set; }
     }

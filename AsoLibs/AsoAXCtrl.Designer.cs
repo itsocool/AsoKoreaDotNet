@@ -73,6 +73,7 @@
             // 
             this.cmbVan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbVan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVan.FormattingEnabled = true;
             this.cmbVan.Items.AddRange(new object[] {
             "KOVAN",

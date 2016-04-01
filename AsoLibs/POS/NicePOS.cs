@@ -82,7 +82,7 @@ namespace AsoLibs.POS
                 int port = sendVO.Port;
                 string amount = sendVO.Amount.ToString();
                 string halbu = sendVO.Halbu;
-                string gubun = sendVO.Gubun;
+                string gubun = sendVO.ServiceCode;
                 string authDate = sendVO.AuthDate;
                 string authNo = sendVO.AuthNo;
 

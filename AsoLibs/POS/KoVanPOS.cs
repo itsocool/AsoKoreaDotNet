@@ -1,8 +1,12 @@
-﻿using AsoLibs.VO;
+﻿using AsoLibs.Message;
+using AsoLibs.VO;
 using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace AsoLibs.POS
 {
@@ -20,112 +24,107 @@ namespace AsoLibs.POS
             StringBuilder recv_data
             );
 
-        public RecvVO Send(SendVO sendVO)
+        private RecvVO SendVO(SendVO vo)
         {
-            RecvVO recvVO = null;
-            Int32 returnValue = -1;
             TcpClient client = null;
-            
+
+            RecvVO result = null;
+            KoVanMessage message = null;
+            byte[] sendBytes = null;
+            byte[] recvBytes = new byte[4096];
+
             try
             {
-                string sendString = SendVO2String(sendVO);
-                string recvString = null;
-                byte[] sendBuff = Encoding.Default.GetBytes(sendString);
-                byte[] recvBuff = new byte[4096];
-
-                client = new TcpClient(sendVO.Ip, sendVO.Port);
+                IPAddress ip = IPAddress.Parse(vo.Ip);
+                IPEndPoint ipep = new IPEndPoint(ip, vo.Port);
+                client = new TcpClient();
+                client.Connect(ipep);
 
                 using (NetworkStream stream = client.GetStream())
                 {
-
-                    stream.Write(sendBuff, 0, sendBuff.Length);
-                    stream.Read(recvBuff, 0, recvBuff.Length);
-
-                    if(recvBuff != null && recvBuff.Length > 1)
-                    {
-                        recvString = Encoding.Default.GetString(recvBuff);
-                        recvVO = String2RecvVO(recvString, sendString);
-                    }
+                    message = new KoVanMessage();
+                    message.sendVO = vo;
+                    sendBytes = message.ToByteArray();
+                    stream.Write(sendBytes, 0, sendBytes.Length);
+                    Thread.Sleep(50);
+                    stream.Read(recvBytes, 0, recvBytes.Length);
                 }
             }
             catch (Exception ex)
             {
-                recvVO = new RecvVO();
-                recvVO.ReturnValue = "-2";
-                recvVO.ReturnMessage = ex.Message;
-                return recvVO;
+                System.Console.WriteLine(ex.Message);
+
+            }
+            finally
+            {
+                if(client != null)
+                {
+                    client.Close();
+                    client = null;
+                }
+            }
+
+            return result;
+        }
+
+        public RecvVO Send(SendVO sendVO)
+        {
+            RecvVO recvVO = null;
+
+            try
+            {
+                //string ip = sendVO.Ip;
+                //int port = sendVO.Port;
+                //string amount = sendVO.Amount.ToString();
+                //string halbu = sendVO.Halbu;
+                //string gubun = sendVO.ServiceCode;
+                //string authDate = sendVO.AuthDate;
+                //string authNo = sendVO.AuthNo;
+
+                //string STX = ((char)0x02).ToString();
+                //string ETX = ((char)0x03).ToString();
+                //string FS = ((char)0x1C).ToString();
+
+                //string sendData = STX + gubun + FS + FS + FS + halbu + FS + FS + FS + amount + FS + FS + FS + FS + FS + ETX;
+                ////sendData = "***";
+                //byte[] sendBytes = Encoding.Default.GetBytes(sendData);
+                //recvData = new byte[2000];
+                ////returnValue = ReqToCat(Encoding.Default.GetBytes(ip), port, sendBytes, recvData);
+                ////string result = Encoding.Default.GetString(recvData);
+                //MessageBox.Show(result);
+
+                recvVO = SendVO(sendVO);
+
+                //if (recvVO != null)
+                //{
+                //    recvVO.ReturnValue = Convert.ToString(returnValue);
+                //    recvVO.ReturnMessage = Encoding.Default.GetString(recvData);
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                MessageBox.Show(ex.StackTrace);
+                if (recvVO == null)
+                {
+                    recvVO = new RecvVO();
+                    recvVO.ReturnValue = "-1";
+                }
+                //else if (recvVO.GetValue(1) == null)
+
+                //    recvVO.ReturnValue = -1;
+                //return recvVO;
             }
 
             return recvVO;
         }
 
-        private string SendVO2String(SendVO vo)
+        private RecvVO CreateRecvVO()
         {
-            // 거래구분
-            //10 : MSR 신용승인
-            //11 : MSR 신용취소
-            //S0: IC 승인
-            //S1: IC 취소
-            //X0: MSR / IC 통한 승인
-            //X1: MSR / IC 통한 취소
-            //A0: MSR 신용승인 +멤버쉽
-            //A1: MSR 신용취소 +멤버쉽
-            //S2: IC 신용승인 +멤버쉽(E1 주유소)
-            //S3: IC 신용취소 +멤버쉽(E1 주유소)
-            //H0: 현금IC카드 승인
-            //H1: 현금IC카드 취소
-
-            char STX = (char)0x02;
-            char FS = (char)0x1C;
-            char ETX = (char)0x03;
-
-            int len = 0;
-
-            string result = null;
-
-            if (vo != null)
-            {
-                result += vo.Gubun;         // 거래구분
-                result += FS;
-                result += vo.Halbu;         // 할부개월수
-                result += FS;
-                result += vo.Amount;        // 승인금액
-                result += FS;
-                result += vo.AuthDate;      // 원거래일자
-                result += FS;
-                result += vo.AuthNo;        // 원거래번호
-                result += FS;
-                result += "";               // POS Special User Field
-                result += ETX;
-
-                len = 1 + 4 + result.Length;
-
-                result = STX + len.ToString("D4");    // 4자리 남으면 0으로 채움
-            }
-
-            return result;              
-        }
-
-        private RecvVO String2RecvVO(string str, string sendString = null)
-        {
-            RecvVO result = null;
+            RecvVO result = new RecvVO();
             return result;
         }
 
-    }
-
-    public enum KOVANFieldNames
-    {
-        DataLength,
-        IsApproved,
-        CardNumber,
-        Amount,
-        Tex,
-        ApprovalNo,
-        ShopNo,
-        CardIssuerCode,
-        CardIssuerName,
-        CardPurchaseCode,
-        CardPurchaseName
     }
 }

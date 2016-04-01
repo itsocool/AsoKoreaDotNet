@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace AsoLibs.Printer
 {
@@ -69,7 +70,7 @@ namespace AsoLibs.Printer
         {
             IPAddress ipaddress = IPAddress.Parse(ip);
             IPEndPoint ipep = new IPEndPoint(ipaddress, port);
-            NetworkStream writeStream = null;
+            NetworkStream stream = null;
 
             client = new TcpClient();
             client.Connect(ipep);
@@ -79,10 +80,10 @@ namespace AsoLibs.Printer
                 data = ParsePrintString(data);      // 태그를 이용한 메세지 파싱
             }
 
-            using (writeStream = client.GetStream())
+            using (stream = client.GetStream())
             {
-                byte[] bytes = Encoding.Default.GetBytes(data);
-                writeStream.Write(bytes, 0, bytes.Length);
+                byte[] sendBytes = Encoding.Default.GetBytes(data);
+                stream.Write(sendBytes, 0, sendBytes.Length);
             }
 
             client.Close();

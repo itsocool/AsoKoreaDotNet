@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.Text;
 using System.Reflection;
 using System.Xml;
+using AsoLibs.config;
+using System.IO;
 
 namespace Launcher
 {
@@ -58,48 +60,30 @@ namespace Launcher
             }
         }
 
-        //private void button2_Click(object sender, EventArgs e)
-        //{
-        //    string msg = "<br/><br/><s><br/><br/><center/>영수증 입니다</s><br/><br/><br/><br/>";
-        //    msg += "<barcode>barcode1234</barcode>";
-        //    msg += "<br/><br/>";
-        //    msg += "<cut/>";
+        private void asoAXCtrl1_Load(object sender, EventArgs e)
+        {
 
-        //    oldAx.Print(msg, 1);
-        //}
+            string testMsg = "";
+            testMsg += Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            testMsg += "<br/><br/>";
+            testMsg += "<b>이것은 b태그</b><br/>";
+            testMsg += "<dh>이것은 dh태그</dh><br/>";
+            testMsg += "<barcode>ABCD1234</barcode><br/>";
+            testMsg += "<cut/><br/><br/>";
 
-        //private void button3_Click(object sender, EventArgs e)
-        //{
-        //    asoAXCtrl1.Echo("");
-        //}
+            ConfigVO cvo = new ConfigVO()
+            {
+                Desc = "가라 설정",
+                Ip = "192.168.0.111",
+                Port = 5000,
+                Printer = Printers.LAN.ToString(),
+                PrinterPort = "5000",
+                PrinterWidth = 48,
+                TestPrintMessage = testMsg,
+                Van = VANs.KOVAN.ToString()
+            };
 
-        //private void button4_Click(object sender, EventArgs e)
-        //{
-        //    int returnValue = -1;
-        //    string ip = "192.168.0.111";
-        //    int port = 5000;
-        //    string amount = "1004";
-        //    string halbu = "00";
-
-        //    string STX = ((char)0x02).ToString();
-        //    string ETX = ((char)0x03).ToString();
-        //    string FS = ((char)0x1C).ToString();
-
-        //    try
-        //    {
-        //        string sendData = STX + "D1" + FS + FS + FS + halbu + FS + FS + FS + amount + FS + FS + FS + FS + FS + ETX;
-        //        StringBuilder recvByte = new StringBuilder();
-        //        //returnValue = NicePOS.ReqToCat(ip, port, sendData, recvByte);
-        //        //IPOS pos = new KoVanPOS();
-        //        IPOS pos = new NicePOS();
-        //        RecvVO vo = pos.Send(null);
-        //        string result = vo.ReturnValue.ToString();
-        //        MessageBox.Show(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+            asoAXCtrl1.Init(cvo);
+        }
     }
 }

@@ -429,7 +429,7 @@ namespace AsoLibs
                 Van = Van
                 , Ip = IP
                 , Amount = amount
-                , Gubun = gubun
+                , ServiceCode = gubun
                 , Halbu = halbu
                 , AuthDate = org_auth_date
                 , AuthNo = org_auth_no

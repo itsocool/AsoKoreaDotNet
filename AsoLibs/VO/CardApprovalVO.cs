@@ -77,11 +77,11 @@ namespace AsoLibs.VO
             }
         }
 
-        public string GetValue(KOVANFieldNames fieldName)
-        {
-            int idx = (int)fieldName;
-            return GetValue(idx);
-        }
+        //public string GetValue(KOVANFieldNames fieldName)
+        //{
+        //    int idx = (int)fieldName;
+        //    return GetValue(idx);
+        //}
 
         public string GetValue(int idx)
         {

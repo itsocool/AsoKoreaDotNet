@@ -22,34 +22,57 @@ namespace AsoLibs.Message
             set
             {
                 innerSendVO = value;
-                sendString = ToString();
+                //sendString = ToString();
+                sendString = GetTestString();
+
             }
         }
 
         public override string ToString()
         {
             string result = null;
-            string serviceCode = null;
+            int len = 0;
 
             if(innerSendVO != null)
             {
-                serviceCode = getServiceCode(innerSendVO.Gubun);
-                result = MessageConst.STX.ToString();
-                result += serviceCode;
-                result += MessageConst.FS.ToString();
-                result += MessageConst.FS.ToString();
+                result = getServiceCode(innerSendVO.ServiceCode);
                 result += MessageConst.FS.ToString();
                 result += innerSendVO.Halbu;
                 result += MessageConst.FS.ToString();
-                result += MessageConst.FS.ToString();
-                result += MessageConst.FS.ToString();
                 result += innerSendVO.Amount.ToString("D9");
                 result += MessageConst.FS.ToString();
+                result += innerSendVO.AuthDate;
                 result += MessageConst.FS.ToString();
-                result += MessageConst.FS.ToString();
-                result += MessageConst.FS.ToString();
+                result += innerSendVO.AuthNo;
                 result += MessageConst.FS.ToString();
                 result += MessageConst.ETX.ToString();
+
+                len = result.Length + 5;
+
+                result = MessageConst.STX.ToString() + len.ToString("D4") + result;
+            }
+
+            return result;
+        }
+
+        private string GetTestString()
+        {
+            string result = null;
+            int len = 0;
+
+            if (innerSendVO != null)
+            {
+                result = "GD";
+                result += MessageConst.FS.ToString();
+                result += 1.ToString("D12");
+                result += MessageConst.FS.ToString();
+                result += new String(' ', 80);
+                result += MessageConst.FS.ToString();
+                result += MessageConst.ETX.ToString();
+
+                len = result.Length + 5;
+
+                result = MessageConst.STX.ToString() + len.ToString("D4") + result;
             }
 
             return result;
@@ -61,18 +84,18 @@ namespace AsoLibs.Message
 
             if ("CREDIT_APPROVAL".Equals(gubun))
             {
-                result = "D1";
+                result = "S0";
             }else if("CREDIT_CANCEL".Equals(gubun))
             {
-                result = "D2";
+                result = "S1";
             }
             else if ("CASH_APPROVAL".Equals(gubun))
             {
-                result = "D3";
+                result = "41";
             }
             else if ("CASH_CANCEL".Equals(gubun))
             {
-                result = "D4";
+                result = "42";
             }
             else
             {
